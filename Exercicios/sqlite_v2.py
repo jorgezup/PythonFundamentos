@@ -2,6 +2,7 @@ import sqlite3
 import random
 import time
 import datetime
+import matplotlib.pyplot as plt
 
 ######Definições######
 #######Cria o banco
@@ -30,22 +31,37 @@ def le_quantidade():
         data_insert(produto_input, valor_input, data)
         cont += 1
 
-    fecha_conexao()
 
 def data_insert(nome_produto, valor_produto, data):
-
     cur.execute("INSERT INTO produtos (nome_produto, valor_produto, data) VALUES (?, ?, ?)",
                     (nome_produto, valor_produto, data))
+
+def dados_grafico():
+    cur.execute("SELECT nome_produto, valor_produto FROM produtos")
+    nome_produto = []
+    valores = []
+    dados = cur.fetchall()
+    for linha in dados:
+        nome_produto.append(linha[0])
+        valores.append(linha[1])
+
+    plt.bar(nome_produto, valores)
+    plt.show()
+
 
 def fecha_conexao():
     conn.commit()
     cur.close()
+
     conn.close()
 
 
 def main():
-    create_table()
-    le_quantidade()
+    #create_table()
+    #le_quantidade()
+    dados_grafico()
+    fecha_conexao()
+
 
 
 if __name__ == '__main__':
