@@ -7,15 +7,22 @@ def askNum():
         return num
 
 num = askNum()
-i = 1
-lista=[]
-tot=0
-while i< num+1:
-    lista.append(i)
-    i +=1
+lst_primos = [False, False]
 
-for num in lista:
-   for cont in range(1, num+1):
-       print("num {}".format(num))
-       if num%cont == 0:
-        tot+=1
+
+for numero in range(2,num):
+    isPrime = True
+    print("numero->",numero)
+    for n in range(2, numero):
+        print("n->", n)
+        if numero % n == 0:
+            print("falso%2->", numero)
+            isPrime = False
+
+    if isPrime:
+        lst_primos.append(True)
+    else:
+        lst_primos.append(False)
+
+print(lst_primos)
+
